@@ -14,13 +14,23 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType } from "vue";
+import { ITodoItemData } from "@/types/interfaces";
+
+export default defineComponent({
   props: {
-    value: { textContent: String, completed: Boolean, key: Number },
+    value: Object as PropType<ITodoItemData>,
   },
-  emits: ["checkTODO", "deleteTODO"],
-};
+  emits: {
+    checkTODO(payload: string) {
+      return payload;
+    },
+    deleteTODO(payload: string) {
+      return payload;
+    },
+  },
+});
 </script>
 
 <style>

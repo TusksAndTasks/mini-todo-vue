@@ -9,15 +9,17 @@
   />
 </template>
 
-<script>
-import TodoInput from "@/components/TodoInput";
-import TodoItem from "@/components/TodoItem";
+<script lang="ts">
+import TodoInput from "@/components/TodoListInput.vue";
+import TodoItem from "@/components/TodoListItem.vue";
+import { defineComponent } from "vue";
+import { ITodoInputData, ITodoItemData } from "@/types/interfaces";
 
-export default {
+export default defineComponent({
   name: "TodoList",
   data() {
     return {
-      TodoList: [],
+      TodoList: [] as Array<ITodoItemData>,
     };
   },
   components: {
@@ -25,20 +27,20 @@ export default {
     TodoInput,
   },
   methods: {
-    addNewItem(newTODO) {
+    addNewItem(newTODO: ITodoInputData) {
       const todo = { ...newTODO, completed: false };
       this.TodoList.push(todo);
     },
-    checkItem(key) {
+    checkItem(key: number) {
       this.TodoList = this.TodoList.map((todo) => {
         return todo.key === key
           ? { ...todo, completed: !todo.completed }
           : todo;
       });
     },
-    deleteItem(key) {
+    deleteItem(key: number) {
       this.TodoList = this.TodoList.filter((todo) => todo.key !== key);
     },
   },
-};
+});
 </script>
